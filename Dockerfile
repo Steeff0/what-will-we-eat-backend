@@ -1,30 +1,30 @@
 # Bulder that creats the JAR
-FROM adoptopenjdk/openjdk11:alpine-slim AS builder
-RUN set -x && mkdir "/application"
-WORKDIR /application/
-COPY src/ gradlew build.gradle settings.gradle gradle gradle.properties ./
-RUN ./gradlew build
+FROM gradle:7.1-jdk11-openj9 AS builder
+COPY . /app
+RUN set -x \
+    && cd /app \
+    && ./gradlew bootJar
 
 #Kadaster image contains useful self-signed certificates
 FROM adoptopenjdk/openjdk11:alpine-jre
-ARG APPLICATION_FOLDER=/opt/webapps
 
 RUN set -x \
-    && addgroup -S wwwe \
-    && adduser -S appuser -G wwwe \
-    && mkdir -p "/var/log" \
+    && addgroup -S wwwes \
+    && adduser -S wwwes -G wwwes \
+    && mkdir -p "/var/log/" \
+    && mkdir -p "/opt/webapps/" \
     && ln -s "/var/log/" "/opt/webapps/log" \
-    && chown -R wwwe:wwwe /opt \
-    && chown -R wwwe:wwwe /var/log
+    && chown -R wwwes:wwwes /opt \
+    && chown -R wwwes:wwwes /var/log
 
-COPY --chown=wwwe:wwwe ./dockerFiles/entrypoint.sh /opt/entrypoint.sh
+COPY --chown=wwwes:wwwes ./dockerFiles/entrypoint.sh /opt/entrypoint.sh
 
 RUN set -x \
     && chmod +x "/opt/entrypoint.sh"
 
-COPY --from=builder --chown=wwwe:wwwe /application/build/libs/what-will-we-eat-services.jar /opt/webapps/
+COPY --from=builder --chown=wwwes:wwwes /app/build/libs/wwwe-services.jar /opt/webapps/
 
-USER wwwe
+USER wwwes
 WORKDIR "/opt/webapps"
 ENTRYPOINT ["/opt/entrypoint.sh"]
-CMD ["java", "-jar", "iv-ngr-services.jar"]
+CMD ["java", "-jar", "wwwe-services.jar"]
