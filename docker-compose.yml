@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  what-will-we-eat-services:
+    image: "what-will-we-eat-services"
+    build:
+      context: "."
+      dockerfile: ./Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:localhost;PathPrefix:/services"
+      - "traefik.port=8080"
+    environment:
+      DEBUG_MODE: "TRUE"
+    networks:
+      local-dev:
+    volumes:
+      - "./dockerFiles/config:/opt/webapps/config/"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379"
+    networks:
+      - frontend
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  local-dev:

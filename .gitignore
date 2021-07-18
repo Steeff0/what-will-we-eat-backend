@@ -1,4 +1,7 @@
 .idea
+dockerFiles/config/*
+!dockerFiles/config/.gitkeep
+
 .gradle
 /build/
 

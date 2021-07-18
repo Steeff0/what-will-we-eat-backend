@@ -39,3 +39,8 @@ test {
         events "PASSED", "FAILED", "SKIPPED"
     }
 }
+
+bootJar {
+    archiveBaseName = "wwwe-services"
+    archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
+}
