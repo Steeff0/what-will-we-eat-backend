@@ -6,9 +6,9 @@ services:
       context: "."
       dockerfile: ./Dockerfile
     labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:localhost;PathPrefix:/services"
-      - "traefik.port=8080"
+      traefik.enable: "true" 
+      traefik.http.routers.api.rule: "Host(`wwwe-services.local`)"
+      traefik.http.routers.api.entrypoints: "http"
     environment:
       DEBUG_MODE: "TRUE"
     networks:
@@ -18,3 +18,5 @@ services:
 
 networks:
   local-dev:
+    name: local-dev
+    external: true
