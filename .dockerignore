@@ -1,4 +1,4 @@
 *
 
 !/build/libs/wwwe-services.jar
-!/dockerFiles/*
+!/dockerFiles/entrypoint.sh
