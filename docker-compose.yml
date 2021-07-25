@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  what-will-we-eat-services:
+  wwwes:
     image: "what-will-we-eat-services"
     build:
       context: "."
@@ -9,12 +9,30 @@ services:
       traefik.enable: "true" 
       traefik.http.routers.api.rule: "Host(`wwwe-services.local`)"
       traefik.http.routers.api.entrypoints: "http"
+    ports:
+      - "8051:5005"
     environment:
       DEBUG_MODE: "TRUE"
     networks:
       local-dev:
     volumes:
       - "./dockerFiles/config:/opt/webapps/config/"
+
+  wwwes-database:
+    image: "postgres"
+    networks:
+      local-dev:
+    ports:
+      - "8001:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: recepes
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+
+volumes:
+  database-data:
 
 networks:
   local-dev:
