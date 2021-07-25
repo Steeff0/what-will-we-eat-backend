@@ -1,28 +1,32 @@
-# Bulder that creats the JAR
-FROM gradle:7.1-jdk11-openj9 AS builder
-COPY . /app
-RUN set -x \
-    && cd /app \
-    && ./gradlew bootJar
-
 #Kadaster image contains useful self-signed certificates
 FROM adoptopenjdk/openjdk11:alpine-jre
+LABEL maintainer="Steven Gerritsen <steven.gerritsen@kadaster.nl>"
+
+# 5005 Remote debugging
+# 8080 Web exposure
+# 8088 Prometheus metrics exporter
+EXPOSE 5005 8080 8088
+
+ENV TZ=Europe/Amsterdam
+ENV JVM_OPTS=""
 
 RUN set -x \
+    && apk update --no-cache \
+    && apk add curl bash bash-completion --no-cache \
     && addgroup -S wwwes \
     && adduser -S wwwes -G wwwes \
     && mkdir -p "/var/log/" \
     && mkdir -p "/opt/webapps/" \
-    && ln -s "/var/log/" "/opt/webapps/log" \
-    && chown -R wwwes:wwwes /opt \
-    && chown -R wwwes:wwwes /var/log
+    && ln -s "/var/log/" "/opt/webapps/log"
 
-COPY --chown=wwwes:wwwes ./dockerFiles/entrypoint.sh /opt/entrypoint.sh
+COPY ./dockerFiles/entrypoint.sh /opt/entrypoint.sh
+COPY ./build/libs/wwwe-services.jar /opt/webapps/wwwe-services.jar
 
 RUN set -x \
-    && chmod +x "/opt/entrypoint.sh"
-
-COPY --from=builder --chown=wwwes:wwwes /app/build/libs/wwwe-services.jar /opt/webapps/
+    && chmod +rX -R /opt \
+    && chmod +rwX -R /var/log \
+    && chmod +x "/opt/entrypoint.sh" \
+    && chmod +x "/opt/webapps/wwwe-services.jar"
 
 USER wwwes
 WORKDIR "/opt/webapps"
