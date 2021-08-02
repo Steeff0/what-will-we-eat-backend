@@ -18,7 +18,7 @@ public class Recipe implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String Name;
+    private String name;
 
     private String ingredients;
 
