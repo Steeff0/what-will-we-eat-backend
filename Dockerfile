@@ -1,6 +1,6 @@
 #Kadaster image contains useful self-signed certificates
 FROM adoptopenjdk/openjdk11:alpine-jre
-LABEL maintainer="Steven Gerritsen <steven.gerritsen@kadaster.nl>"
+LABEL maintainer="Steven Gerritsen <steven.gerritsen@gmail.com>"
 
 # 8080 Web exposure
 # 8088 Prometheus metrics exporter
