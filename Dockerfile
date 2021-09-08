@@ -2,10 +2,9 @@
 FROM adoptopenjdk/openjdk11:alpine-jre
 LABEL maintainer="Steven Gerritsen <steven.gerritsen@kadaster.nl>"
 
-# 5005 Remote debugging
 # 8080 Web exposure
 # 8088 Prometheus metrics exporter
-EXPOSE 5005 8080 8088
+EXPOSE 8080 8088
 
 ENV TZ=Europe/Amsterdam
 ENV JVM_OPTS=""
