@@ -22,10 +22,10 @@ COPY ./dockerFiles/entrypoint.sh /opt/entrypoint.sh
 COPY ./build/libs/wwwe-services.jar /opt/webapps/wwwe-services.jar
 
 RUN set -x \
-    && chmod +rX -R /opt \
-    && chmod +rwX -R /var/log \
-    && chmod +x "/opt/entrypoint.sh" \
-    && chmod +x "/opt/webapps/wwwe-services.jar"
+    && chmod a+rX -R /opt \
+    && chmod a+rwt -R /var/log \
+    && chmod a+x "/opt/entrypoint.sh" \
+    && chmod a+x "/opt/webapps/wwwe-services.jar"
 
 USER wwwes
 WORKDIR "/opt/webapps"
