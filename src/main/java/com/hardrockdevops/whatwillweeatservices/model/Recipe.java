@@ -3,11 +3,11 @@ package com.hardrockdevops.whatwillweeatservices.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
@@ -27,5 +27,4 @@ public class Recipe implements Serializable {
     private String author;
 
     private int duration;
-
 }
