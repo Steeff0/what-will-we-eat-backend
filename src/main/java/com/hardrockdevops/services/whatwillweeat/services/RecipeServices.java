@@ -1,6 +1,6 @@
 package com.hardrockdevops.services.whatwillweeat.services;
 
-import com.hardrockdevops.services.whatwillweeat.model.Recipe;
+import com.hardrockdevops.services.whatwillweeat.model.Recipes;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,13 +32,13 @@ public class RecipeServices {
         return sessionFactory.getCurrentSession();
     }
 
-    public Recipe findByRecipeId(long id) {
+    public Recipes findByRecipeId(long id) {
         CriteriaBuilder cb = getSession().getCriteriaBuilder();
-        CriteriaQuery<Recipe> orderCriteriaQuery = cb.createQuery(Recipe.class);
-        Root<Recipe> root = orderCriteriaQuery.from(Recipe.class);
+        CriteriaQuery<Recipes> orderCriteriaQuery = cb.createQuery(Recipes.class);
+        Root<Recipes> root = orderCriteriaQuery.from(Recipes.class);
         Predicate predicate = cb.equal(root.get("id"), id);
         orderCriteriaQuery.select(root).where(predicate);
-        Query<Recipe> query = getSession().createQuery(orderCriteriaQuery);
+        Query<Recipes> query = getSession().createQuery(orderCriteriaQuery);
         try {
             return query.getSingleResult();
         }catch (NoResultException nre){
@@ -48,10 +48,10 @@ public class RecipeServices {
         return null;
     }
 
-    public List<Recipe> getAllRecipes() {
+    public List<Recipes> getAllRecipes() {
         CriteriaBuilder cb = getSession().getCriteriaBuilder();
-        CriteriaQuery<Recipe> orderCriteriaQuery = cb.createQuery(Recipe.class);
-        Query<Recipe> query = getSession().createQuery(orderCriteriaQuery);
+        CriteriaQuery<Recipes> orderCriteriaQuery = cb.createQuery(Recipes.class);
+        Query<Recipes> query = getSession().createQuery(orderCriteriaQuery);
         try {
             return query.getResultList();
         }catch (NoResultException nre){
@@ -61,17 +61,17 @@ public class RecipeServices {
         return new ArrayList<>();
     }
 
-    public void update(Recipe recipe) {
+    public void update(Recipes recipe) {
         getSession().update(recipe);
     }
 
-    public long create(Recipe recipe) {
+    public long create(Recipes recipe) {
         Serializable newId = getSession().save(recipe);
-        return getSession().get(Recipe.class, newId).getId();
+        return getSession().get(Recipes.class, newId).getId();
     }
 
     public void delete(long id) {
-        Recipe recipe = findByRecipeId(id);
+        Recipes recipe = findByRecipeId(id);
         getSession().delete(recipe);
     }
 }
