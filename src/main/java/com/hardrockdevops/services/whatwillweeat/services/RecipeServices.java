@@ -1,17 +1,13 @@
-package com.hardrockdevops.whatwillweeatservices.services;
+package com.hardrockdevops.services.whatwillweeat.services;
 
-import com.hardrockdevops.whatwillweeatservices.model.Recipe;
+import com.hardrockdevops.services.whatwillweeat.model.Recipe;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;

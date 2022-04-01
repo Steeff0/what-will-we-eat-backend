@@ -1,4 +1,4 @@
-package com.hardrockdevops.whatwillweeatservices;
+package com.hardrockdevops.services.whatwillweeat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

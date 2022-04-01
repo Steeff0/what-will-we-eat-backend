@@ -1,4 +1,4 @@
-package com.hardrockdevops.whatwillweeatservices.model;
+package com.hardrockdevops.services.whatwillweeat.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

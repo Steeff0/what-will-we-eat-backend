@@ -1,14 +1,12 @@
-package com.hardrockdevops.whatwillweeatservices.controller;
+package com.hardrockdevops.services.whatwillweeat.controller;
 
-import com.hardrockdevops.whatwillweeatservices.model.Recipe;
-import com.hardrockdevops.whatwillweeatservices.services.RecipeServices;
+import com.hardrockdevops.services.whatwillweeat.model.Recipe;
+import com.hardrockdevops.services.whatwillweeat.services.RecipeServices;
 import lombok.extern.apachecommons.CommonsLog;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/recipe")
