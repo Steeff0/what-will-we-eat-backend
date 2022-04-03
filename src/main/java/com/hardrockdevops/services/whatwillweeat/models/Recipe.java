@@ -1,18 +1,17 @@
-package com.hardrockdevops.services.whatwillweeat.model;
+package com.hardrockdevops.services.whatwillweeat.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-public class Recipes {
+public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,14 +21,14 @@ public class Recipes {
     private String name;
 
     @OneToMany(mappedBy="recipe")
-    private List<Ingredients> ingredients;
+    private List<Ingredient> ingredients;
 
     @Lob
     private String description;
 
     @ManyToOne
     @JoinColumn(name="id", nullable=false)
-    private Users creator;
+    private User creator;
 
     @Column(nullable=false)
     private ZonedDateTime created;
@@ -40,5 +39,5 @@ public class Recipes {
     private Duration prepTime;
 
     @Enumerated(EnumType.STRING)
-    private Kitchens kitchen;
+    private Kitchen kitchen;
 }

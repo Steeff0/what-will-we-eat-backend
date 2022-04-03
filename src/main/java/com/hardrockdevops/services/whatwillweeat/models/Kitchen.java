@@ -1,6 +1,6 @@
-package com.hardrockdevops.services.whatwillweeat.model;
+package com.hardrockdevops.services.whatwillweeat.models;
 
-public enum Kitchens {
+public enum Kitchen {
     ASIAN,
     NORTHERN_AMERICAN,
     SOUTHERN_AMERICAN,

@@ -1,6 +1,6 @@
-package com.hardrockdevops.services.whatwillweeat.controller;
+package com.hardrockdevops.services.whatwillweeat.controllers;
 
-import com.hardrockdevops.services.whatwillweeat.model.Recipes;
+import com.hardrockdevops.services.whatwillweeat.models.Recipe;
 import com.hardrockdevops.services.whatwillweeat.services.RecipeServices;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.http.HttpStatus;
@@ -21,27 +21,27 @@ public class RecipeController {
     }
 
     @GetMapping(path = "/")
-    public List<Recipes> getRecipes(){
+    public List<Recipe> getRecipes(){
         log.debug("Entering getRecipes");
         return recipeServices.getAllRecipes();
     }
 
     @GetMapping(path = "/{id}")
-    public Recipes getRecipe(@PathVariable("id") final long id){
+    public Recipe getRecipe(@PathVariable("id") final long id){
         log.debug("Entering getRecipe with id:" + id);
         return recipeServices.findByRecipeId(id);
     }
 
     @PostMapping(path = "/")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void addRecipe(@RequestBody Recipes recipe){
+    public void addRecipe(@RequestBody Recipe recipe){
         log.debug("Entering addRecipe");
         recipeServices.create(recipe);
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateRecipe(@RequestBody Recipes recipe, @PathVariable("id") final long id){
+    public void updateRecipe(@RequestBody Recipe recipe, @PathVariable("id") final long id){
         log.debug("Entering updateRecipe");
         recipeServices.update(recipe);
     }

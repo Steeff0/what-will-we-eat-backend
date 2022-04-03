@@ -1,4 +1,4 @@
-package com.hardrockdevops.services.whatwillweeat.model;
+package com.hardrockdevops.services.whatwillweeat.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Ingredients {
+public class Ingredient {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -18,7 +18,7 @@ public class Ingredients {
 
     @ManyToOne
     @JoinColumn(name="id", nullable=false)
-    private Recipes recipe;
+    private Recipe recipe;
 
     @Column(length=80, nullable=false)
     private String ingredient;

@@ -1,4 +1,4 @@
-package com.hardrockdevops.services.whatwillweeat.model;
+package com.hardrockdevops.services.whatwillweeat.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -27,8 +27,8 @@ public class Users {
     private boolean blocked = false;
 
     @Column(nullable=false)
-    private Rolls roll = Rolls.USER;
+    private Roll roll = Roll.USER;
 
     @OneToMany(mappedBy="creator")
-    private List<Recipes> recipes;
+    private List<Recipe> recipes;
 }
