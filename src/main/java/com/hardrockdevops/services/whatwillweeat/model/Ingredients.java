@@ -16,12 +16,13 @@ public class Ingredients {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column
-    private long recipe;
+    @ManyToOne
+    @JoinColumn(name="id", nullable=false)
+    private Recipes recipe;
 
-    @Column
+    @Column(length=80, nullable=false)
     private String ingredient;
 
-    @Column
+    @Column(length=20, nullable=false)
     private String amount;
 }

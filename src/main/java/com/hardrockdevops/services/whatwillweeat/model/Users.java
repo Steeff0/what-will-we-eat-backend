@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,15 +17,18 @@ public class Users {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(length=100, nullable=false)
     private String name;
 
-    @Column
+    @Column(length=256, nullable=false)
     private String email;
 
-    @Column
-    private boolean blocked;
+    @Column(nullable=false)
+    private boolean blocked = false;
 
-    @Column
+    @Column(nullable=false)
     private Rolls roll = Rolls.USER;
+
+    @OneToMany(mappedBy="creator")
+    private List<Recipes> recipes;
 }

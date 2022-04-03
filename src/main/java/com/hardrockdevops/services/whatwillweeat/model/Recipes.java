@@ -8,10 +8,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-public class Recipes implements Serializable {
+public class Recipes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,11 +21,15 @@ public class Recipes implements Serializable {
     @Column(length=80, nullable=false, unique=false)
     private String name;
 
+    @OneToMany(mappedBy="recipe")
+    private List<Ingredients> ingredients;
+
     @Lob
     private String description;
 
-    @Basic
-    private long creator;
+    @ManyToOne
+    @JoinColumn(name="id", nullable=false)
+    private Users creator;
 
     @Column(nullable=false)
     private ZonedDateTime created;
