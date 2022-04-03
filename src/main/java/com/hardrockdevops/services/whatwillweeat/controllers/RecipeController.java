@@ -1,5 +1,6 @@
 package com.hardrockdevops.services.whatwillweeat.controllers;
 
+import com.hardrockdevops.services.whatwillweeat.exceptions.ServiceException;
 import com.hardrockdevops.services.whatwillweeat.models.Recipe;
 import com.hardrockdevops.services.whatwillweeat.services.RecipeServices;
 import lombok.extern.apachecommons.CommonsLog;
@@ -23,11 +24,11 @@ public class RecipeController {
     @GetMapping(path = "/")
     public List<Recipe> getRecipes(){
         log.debug("Entering getRecipes");
-        return recipeServices.getAllRecipes();
+        return recipeServices.list();
     }
 
     @GetMapping(path = "/{id}")
-    public Recipe getRecipe(@PathVariable("id") final long id){
+    public Recipe getRecipe(@PathVariable("id") final long id) throws ServiceException {
         log.debug("Entering getRecipe with id:" + id);
         return recipeServices.findByRecipeId(id);
     }
@@ -36,20 +37,20 @@ public class RecipeController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public void addRecipe(@RequestBody Recipe recipe){
         log.debug("Entering addRecipe");
-        recipeServices.create(recipe);
+        recipeServices.createRecipe(recipe);
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateRecipe(@RequestBody Recipe recipe, @PathVariable("id") final long id){
         log.debug("Entering updateRecipe");
-        recipeServices.update(recipe);
+        recipeServices.updateRecipe(recipe);
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteRecipe(@PathVariable("id") final long id){
+    public void deleteRecipe(@PathVariable("id") final long id) throws ServiceException {
         log.debug("Entering deleteRecipe");
-        recipeServices.delete(id);
+        recipeServices.deleteRecipe(id);
     }
 }
